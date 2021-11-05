@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 
 namespace StringOperations
 {
@@ -31,6 +32,56 @@ namespace StringOperations
             return input.ToLower().Replace(",", "").Trim();
         }
 
+        static string Reverse(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            StringBuilder reversed = new StringBuilder(input.Length);
+
+            for (int i = input.Length - 1; i >= 0; i--)
+            {
+                reversed.Append(input[i]);
+            }
+
+            return reversed.ToString();
+        }
+
+        static string Reverse2(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            char[] array = input.ToCharArray();
+
+            Array.Reverse(array);
+
+            return new string(array);
+        }
+
+        static String ReverseEachWord(String input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            StringBuilder result = new StringBuilder();
+
+            string[] arr = input.Split(' ');
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                result.Append(Reverse2(arr[i]));
+            }
+
+            return result.ToString();
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine(IsUpperCase("hello"));
@@ -48,6 +99,12 @@ namespace StringOperations
             Console.WriteLine(NormalizeString("Hello There, BUDDY       "));
 
             Console.WriteLine(NormalizeString("Hello There, BUDDY       ").Contains("there"));
+
+            Console.WriteLine(Reverse("Hello World!"));
+
+            Console.WriteLine(Reverse2("Hello World!"));
+
+            Console.WriteLine(ReverseEachWord("Hello There, Buddy "));
             Console.ReadLine();
         }
     }
