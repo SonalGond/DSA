@@ -41,6 +41,52 @@ namespace Array
             return null;
         }
 
+        static int[] Reverse(int[] input)
+        {
+            int[] reversed = new int[input.Length];
+
+            for (int i = 0; i < reversed.Length; i++)
+            {
+                reversed[i] = input[input.Length - i - 1];
+            }
+
+            return reversed;
+        }
+
+        static void ReverseInPlace(int[] input)
+        {
+            for (int i = 0; i < input.Length / 2; i++)
+            {
+                // Swap index(i) with index(input-i-1)
+                int temp = input[i];
+                input[i] = input[input.Length - i - 1];
+                input[input.Length - i - 1] = temp;
+            }
+        }
+
+        static void RotateLeft(int[] input)
+        {
+            int temp = input[0];
+            for (int i = 0; i < input.Length - 1; i++)
+            {
+                input[i] = input[i + 1];
+            }
+
+            input[input.Length - 1] = temp;
+        }
+
+        static void RotateRight(int[] input)
+        {
+            int temp = input[input.Length - 1];
+            for (int i = input.Length - 1; i > 0; i--)
+            {
+                input[i] = input[i - 1];
+            }
+
+            input[0] = temp;
+        }
+
+
         static void Main(string[] args)
         {
             int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8 };
@@ -59,18 +105,34 @@ namespace Array
             Console.WriteLine($"Binary Search {BinarySearchArray(arr, 4)}");
 
             //or
+
             int pos = System.Array.BinarySearch(arr, 9);
             if (pos >= 0)
-                Console.WriteLine($"Item {arr[pos].ToString()} found at position {pos + 1}.");
+                Console.WriteLine($"Item {arr[pos].ToString()} is found at {pos + 1}");
             else
                 Console.WriteLine("Item not found");
 
+            //Reverse an array
 
-            pos = System.Array.BinarySearch(arr, 4);
-            if (pos >= 0)
-                Console.WriteLine($"Item {arr[pos].ToString()} found at position {pos + 1}.");
-            else
-                Console.WriteLine("Item not found");
+            int[] reversed = Reverse(arr);
+            System.Array.ForEach(reversed, Console.WriteLine);
+
+            //or
+            ReverseInPlace(arr);
+            System.Array.ForEach(arr, Console.WriteLine);
+
+            arr = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+            //Rotate an array to Left
+            RotateLeft(arr);
+            Console.WriteLine("Left Rotation");
+            System.Array.ForEach(arr, Console.Write);
+
+            Console.WriteLine("Right Rotation");
+            arr = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+            //Rotate an array to right
+            RotateRight(arr);
+            System.Array.ForEach(arr, Console.Write);
+
 
             Console.ReadKey();
         }
