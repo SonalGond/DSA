@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stack
 {
@@ -10,7 +7,7 @@ namespace Stack
     {
         static void NextGreaterElement(int[] arr)
         {
-            if(arr.Length <= 0)
+            if (arr.Length <= 0)
             {
                 return;
             }
@@ -18,7 +15,7 @@ namespace Stack
             Stack<int> stack = new Stack<int>();
             stack.Push(arr[0]);
 
-            for(int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
                 int next = arr[i];
 
@@ -36,7 +33,7 @@ namespace Stack
                         popped = stack.Pop();
                     }
 
-                    if(popped > next)
+                    if (popped > next)
                     {
                         stack.Push(popped);
                     }
@@ -44,10 +41,40 @@ namespace Stack
                 stack.Push(next);
             }
 
-            while(stack.Count > 0)
+            while (stack.Count > 0)
             {
                 Console.WriteLine(stack.Pop() + "->" + -1);
             }
+        }
+
+        static Boolean MatchingParenthesis(string input)
+        {
+            int matchingParenthesis = 0;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                char current = input[i];
+
+                if (current == '(')
+                {
+                    matchingParenthesis++;
+                    continue;
+                }
+
+                if (current == ')')
+                {
+                    if (matchingParenthesis > 0)
+                    {
+                        matchingParenthesis--;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return matchingParenthesis == 0;
         }
 
         static void Main(string[] args)
@@ -70,6 +97,31 @@ namespace Stack
             //Print Next Greater Element
             int[] arr = { 15, 8, 4, 10 };
             NextGreaterElement(arr);
+
+            //Matching Parenthesis
+            string input = "((hello()))";
+            bool value = MatchingParenthesis(input);
+            Console.WriteLine($"Matching Parenthesis - { value } ");
+
+            input = "()hello())";
+            value = MatchingParenthesis(input);
+            Console.WriteLine($"Matching Parenthesis - { value } ");
+
+            input = "((hello))";
+            value = MatchingParenthesis(input);
+            Console.WriteLine($"Matching Parenthesis - { value } ");
+
+            input = "(hello)";
+            value = MatchingParenthesis(input);
+            Console.WriteLine($"Matching Parenthesis - {value } ");
+
+            input = "(hello(";
+            value = MatchingParenthesis(input);
+            Console.WriteLine($"Matching Parenthesis - { value } ");
+
+            input = ")hello)";
+            value = MatchingParenthesis(input);
+            Console.WriteLine($"Matching Parenthesis - { value } ");
 
             Console.ReadKey();
         }
