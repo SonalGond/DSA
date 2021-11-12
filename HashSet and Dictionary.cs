@@ -11,7 +11,7 @@ namespace HashSet
         class Employee
         {
             public string name { get; set; }
-           public int id { get; set; }
+            public int id { get; set; }
             public string department { get; set; }
 
             public Employee(string name, int id, string department)
@@ -27,7 +27,7 @@ namespace HashSet
             List<int> missingElement = new List<int>();
             HashSet<int> secondArrayItems = new HashSet<int>();
 
-            foreach(int item in second)
+            foreach (int item in second)
             {
                 secondArrayItems.Add(item);
             }
@@ -39,6 +39,28 @@ namespace HashSet
             }
 
             return missingElement;
+        }
+
+        static void DisplayFrequencyOfEachElement(int[] array)
+        {
+            Dictionary<int, int> freqDict = new Dictionary<int, int>();
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (freqDict.ContainsKey(array[i]))
+                {
+                    freqDict[array[i]]++;
+                }
+                else
+                {
+                    freqDict[array[i]] = 1;
+                }
+            }
+
+            foreach (KeyValuePair<int, int> x in freqDict)
+            {
+                Console.WriteLine(x.Key + "->" + x.Value);
+            }
         }
 
         static void Main(string[] args)
@@ -54,7 +76,7 @@ namespace HashSet
             empById.Add(emp3.id, emp3);
 
             Employee e;
-            if(empById.TryGetValue(9415, out e))
+            if (empById.TryGetValue(9415, out e))
             {
                 Console.WriteLine(e.name + ":" + e.department);
             }
@@ -69,8 +91,10 @@ namespace HashSet
             Console.WriteLine($"Product Code J2H762 exist - {productCodes.Contains("J2H762")}");
 
             //Find item present in first array but not in second array - membership
-
             FindMissingElement(new int[] { 1, 2, 3, 4 }, new int[] { 2, 4 }).ForEach(Console.WriteLine);
+
+            //Display the count of each element in an unsorted array
+            DisplayFrequencyOfEachElement(new int[] { 3, 0, 2, 4, 7, 3, 4, 5, 7, 6, 7 });
 
             Console.ReadKey();
         }
