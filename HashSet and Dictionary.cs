@@ -22,6 +22,42 @@ namespace HashSet
             }
         }
 
+        public class CustomLinkedList
+        {
+            public Node head;
+            public class Node
+            {
+                public int data;
+                public Node next;
+                public Node(int d)
+                {
+                    data = d;
+                    next = null;
+                }
+            }
+
+            public Boolean HasCycle()
+            {
+                HashSet<Node> nodes = new HashSet<Node>();
+                Node current = head;
+                while (current != null)
+                {
+                    if (nodes.Contains(current))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        nodes.Add(current);
+                    }
+
+                    current = current.next;
+                }
+
+                return false;
+            }
+        }
+
         static List<int> FindMissingElement(int[] first, int[] second)
         {
             List<int> missingElement = new List<int>();
@@ -95,6 +131,26 @@ namespace HashSet
 
             //Display the count of each element in an unsorted array
             DisplayFrequencyOfEachElement(new int[] { 3, 0, 2, 4, 7, 3, 4, 5, 7, 6, 7 });
+
+            //Detect a cyclic linked list
+            CustomLinkedList nocycleLinkedList = new CustomLinkedList();
+            CustomLinkedList.Node firstNode = new CustomLinkedList.Node(3);
+            CustomLinkedList.Node secondNode = new CustomLinkedList.Node(4);
+            CustomLinkedList.Node thirdNode = new CustomLinkedList.Node(5);
+            CustomLinkedList.Node fourthNode = new CustomLinkedList.Node(6);
+
+            nocycleLinkedList.head = firstNode;
+            firstNode.next = secondNode;
+            secondNode.next = thirdNode;
+            thirdNode.next = fourthNode;
+
+            Console.WriteLine($"Has Cycle - {nocycleLinkedList.HasCycle()}");
+
+            CustomLinkedList cycleLinkedList = new CustomLinkedList();
+            cycleLinkedList.head = firstNode;
+            thirdNode.next = secondNode;
+
+            Console.WriteLine($"Has Cycle - {cycleLinkedList.HasCycle()}");
 
             Console.ReadKey();
         }
